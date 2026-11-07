@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { ArrowLeft, BookOpen, Volume2, Sparkles, CheckCircle2, RotateCcw } from 'lucide-react';
+import { ArrowLeft, BookOpen, Volume2, Sparkles, CheckCircle2, MessageCircleHeart } from 'lucide-react';
 import { LECTURA_MISSIONS } from '../data/lecturaData';
 import { sound } from '../sounds';
 import PetAvatar from './PetAvatar';
@@ -15,6 +15,7 @@ export default function LecturaGame({ onBack, onAddStar, pet }) {
 
   const mission = LECTURA_MISSIONS[missionIndex];
   const currentQ = mission.questions[questionIndex];
+  const isLastQuestionOfStory = questionIndex + 1 === mission.questions.length;
 
   // Optional voice narration using Web Speech API
   const handleReadAloud = () => {
@@ -98,7 +99,7 @@ export default function LecturaGame({ onBack, onAddStar, pet }) {
         </button>
 
         <span className="text-xs font-black text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full border border-indigo-200">
-          Misión {missionIndex + 1} de {LECTURA_MISSIONS.length}
+          Historia {missionIndex + 1} de {LECTURA_MISSIONS.length}
         </span>
       </div>
 
@@ -142,11 +143,29 @@ export default function LecturaGame({ onBack, onAddStar, pet }) {
 
       {/* Question Card */}
       <div className="bg-white rounded-3xl p-5 md:p-6 shadow-xl border-4 border-indigo-200 mb-6">
-        <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="w-5 h-5 text-indigo-600" />
-          <span className="text-xs font-black text-indigo-700 uppercase tracking-wider">
-            Pregunta de comprensión ({questionIndex + 1}/{mission.questions.length})
-          </span>
+        {/* Progress pills for the 3 questions of this story */}
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-1.5">
+            <BookOpen className="w-5 h-5 text-indigo-600" />
+            <span className="text-xs font-black text-indigo-700 uppercase tracking-wider">
+              Pregunta {questionIndex + 1} de {mission.questions.length}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            {mission.questions.map((_, i) => (
+              <span
+                key={i}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  i === questionIndex
+                    ? 'bg-indigo-600 scale-125 ring-2 ring-indigo-300'
+                    : i < questionIndex
+                    ? 'bg-emerald-500'
+                    : 'bg-slate-200'
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         <p className="text-xl md:text-2xl font-black text-slate-800 mb-4">
@@ -192,10 +211,10 @@ export default function LecturaGame({ onBack, onAddStar, pet }) {
             {isCorrect ? (
               <span className="text-emerald-600 flex items-center gap-1.5">
                 <CheckCircle2 className="w-6 h-6" />
-                ¡Gran comprensión lectora! +1 Estrella ⭐
+                ¡Excelente respuesta! +1 Estrella ⭐
               </span>
             ) : (
-              <span className="text-rose-600">¡Volvamos a leer la pista!</span>
+              <span className="text-rose-600">¡Volvamos a buscar en la lectura!</span>
             )}
           </div>
 
@@ -203,12 +222,20 @@ export default function LecturaGame({ onBack, onAddStar, pet }) {
             {currentQ.explanation}
           </p>
 
+          {/* Special reflection prompt when completing the story */}
+          {isCorrect && isLastQuestionOfStory && mission.reflection && (
+            <div className="mt-4 p-4 bg-amber-50 rounded-2xl border-2 border-amber-300 text-amber-950 font-black text-sm md:text-base text-left shadow-sm flex items-start gap-2.5">
+              <MessageCircleHeart className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
+              <p>{mission.reflection}</p>
+            </div>
+          )}
+
           <button
             onClick={handleNext}
-            className="mt-4 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:scale-95 text-white font-black text-base rounded-2xl shadow-md transition-all inline-flex items-center gap-2"
+            className="mt-5 px-7 py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:scale-95 text-white font-black text-base rounded-2xl shadow-md transition-all inline-flex items-center gap-2"
           >
             <span>
-              {questionIndex + 1 < mission.questions.length ? 'Siguiente Pregunta' : 'Siguiente Historia'}
+              {!isLastQuestionOfStory ? 'Siguiente Pregunta' : '🎉 ¡Siguiente Historia de Mascotas!'}
             </span>
             <span>➔</span>
           </button>

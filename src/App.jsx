@@ -20,6 +20,7 @@ import HubMenu from './components/HubMenu';
 import AbnRejilla from './components/AbnRejilla';
 import LenguaGame from './components/LenguaGame';
 import CienciasGame from './components/CienciasGame';
+import LecturaGame from './components/LecturaGame';
 
 export default function App() {
   // Persistent state in localStorage
@@ -150,6 +151,8 @@ export default function App() {
         return 'Lengua y Ortografía';
       case 'animals_world':
         return 'Ciencias Naturales';
+      case 'reading':
+        return 'Lectura Corta';
       default:
         return `Amigos del ${target}`;
     }
@@ -261,6 +264,14 @@ export default function App() {
 
         {currentView === 'game' && currentModuleId === 'animals_world' && (
           <CienciasGame
+            onBack={() => setCurrentView('hub')}
+            onAddStar={() => setStars((s) => s + 1)}
+            pet={currentPet}
+          />
+        )}
+
+        {currentView === 'game' && currentModuleId === 'reading' && (
+          <LecturaGame
             onBack={() => setCurrentView('hub')}
             onAddStar={() => setStars((s) => s + 1)}
             pet={currentPet}

@@ -71,9 +71,10 @@ export default function HubMenu({ currentModule, onSelectModule, onBack }) {
         {
           id: 'reading',
           title: 'Misiones de Lectura Corta',
-          desc: 'Preguntas de comprensión con retos divertidos',
-          level: 'Próximamente',
-          status: 'locked'
+          desc: 'Historias ilustradas con preguntas de comprensión y voz',
+          level: '2º Primaria',
+          status: 'active',
+          tag: '¡Nuevo!'
         }
       ]
     },

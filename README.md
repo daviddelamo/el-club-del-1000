@@ -45,3 +45,17 @@ Aplicación web educativa progresiva (PWA) diseñada para aprender y practicar m
 * **Refugio y Armario:** Desbloqueo de nuevas mascotas y accesorios (gorritos, gafas de genio, corona, medalla de oro, capa de superheroína) con las estrellas conseguidas.
 * **Sonidos sintetizados con Web Audio API:** Sin descargas externas pesadas; funciona 100% offline.
 * **Centro de aprendizaje modular:** Preparado para añadir nuevos temas (Amigos del 100, Amigos del 10, Rejilla ABN, Lengua, etc.).
+
+---
+
+## 🐳 Despliegue en Coolify con Docker Compose
+
+Este proyecto está optimizado con un **Dockerfile multi-stage** (Node 22 para build + Nginx Alpine para servir con compresión Gzip y headers PWA) y un `docker-compose.yml`.
+
+### Pasos en Coolify:
+1. En tu panel de Coolify, crea un nuevo **Recurso -> Aplicación desde Repositorio Git** (GitHub).
+2. Selecciona este repositorio y la rama `main`.
+3. Coolify detectará automáticamente `Docker Compose` o `Dockerfile`.
+4. Define el dominio para tu hija (ej. `https://abn.tudominio.com`). Coolify gestionará automáticamente el certificado SSL (Let's Encrypt).
+5. Pulsa **Deploy** y ¡a jugar desde cualquier tablet o lugar del mundo!
+

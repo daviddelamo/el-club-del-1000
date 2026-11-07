@@ -1,0 +1,16 @@
+{
+  "short_name": "Club 1000",
+  "name": "El Club del 1000 - Aventura ABN Mascotas",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#fef3c7",
+  "theme_color": "#f59e0b",
+  "display": "standalone",
+  "orientation": "landscape"
+}

@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #fef9c3 0%, #fef08a 50%, #fed7aa 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Custom bounce and happy animations */
+@keyframes happyJump {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-16px) scale(1.06); }
+}
+
+@keyframes earWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.8); }
+}
+
+.animate-happy-jump {
+  animation: happyJump 0.6s ease-in-out infinite;
+}
+
+.animate-ear-wiggle {
+  animation: earWiggle 1.5s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Button active feel on touch screens */
+button:active {
+  transform: scale(0.96);
+}

@@ -1,11 +1,11 @@
 // Comprehensive 2nd Grade Primary Natural Sciences (Ciencias de la Naturaleza - El Reino Animal)
-// Covers vertebrates, invertebrates, habitats, alimentation, reproduction, and animal wonders.
+// Options are direct and challenging without parenthetical clues.
 
 export const CIENCIAS_QUESTIONS = [
   {
     id: 1,
     question: 'El perrito Toby nace de la tripita de su mamá y mama leche cuando es un cachorro. Es un animal...',
-    options: ['Vivíparo (nace del vientre materno)', 'Ovíparo (nace de un huevo con cáscara)'],
+    options: ['Vivíparo', 'Ovíparo'],
     correct: 0,
     fact: '¡Correcto! Los mamíferos como perros, gatos y humanos son vivíparos: nacen vivos del vientre materno.',
     icon: '🐶'
@@ -13,7 +13,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 2,
     question: 'El águila y el pingüino nacen de huevos que sus padres cuidan en el nido. Son animales...',
-    options: ['Ovíparos (nacen de un huevo)', 'Vivíparos (nacen del vientre)'],
+    options: ['Ovíparos', 'Vivíparos'],
     correct: 0,
     fact: '¡Exacto! Todas las aves, la mayoría de los peces, anfibios y reptiles nacen de huevos.',
     icon: '🦅'
@@ -36,7 +36,7 @@ export const CIENCIAS_QUESTIONS = [
   },
   {
     id: 5,
-    question: 'El oso pardo y los seres humanos comemos tanto vegetales (frutas, verduras) como carne y pescado. Somos...',
+    question: 'El oso pardo y los seres humanos comemos tanto vegetales como carne y pescado. Somos...',
     options: ['Omnívoros', 'Herbívoros', 'Carnívoros'],
     correct: 0,
     fact: '¡Genial! "Omni" significa todo: los omnívoros comen alimentos variados de origen vegetal y animal.',
@@ -61,7 +61,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 8,
     question: 'El delfín Doly y la ballena viven en el agua, pero respiran aire por los pulmones y maman leche. Son...',
-    options: ['Mamíferos marinos', 'Peces con escamas'],
+    options: ['Mamíferos marinos', 'Peces'],
     correct: 0,
     fact: '¡Un dato fascinante! Aunque nadan como peces, los delfines y ballenas son mamíferos y respiran aire por su espiráculo.',
     icon: '🐬'
@@ -77,7 +77,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 10,
     question: '¿Qué tienen todas las aves que ningún otro grupo de animales del planeta tiene?',
-    options: ['El cuerpo cubierto de plumas', 'Dientes afilados', 'Cuatro patas para correr'],
+    options: ['Plumas', 'Dientes afilados', 'Cuatro patas'],
     correct: 0,
     fact: '¡Las plumas son exclusivas de las aves! Les sirven para volar, mantener el calor y protegerse del agua.',
     icon: '🦜'
@@ -85,7 +85,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 11,
     question: 'Los peces viven bajo el agua y obtienen el oxígeno disuelto en ella gracias a...',
-    options: ['Las branquias (o agallas)', 'Los pulmones', 'La piel seca'],
+    options: ['Las branquias', 'Los pulmones', 'La piel seca'],
     correct: 0,
     fact: '¡Muy bien! El agua entra por su boca y pasa por las branquias, que absorben el oxígeno del agua.',
     icon: '🐟'
@@ -101,7 +101,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 13,
     question: '¿Cuántas patas tienen todos los insectos como las hormigas, abejas y escarabajos?',
-    options: ['6 patas (tres pares)', '8 patas', '4 patas'],
+    options: ['6 patas', '8 patas', '4 patas'],
     correct: 0,
     fact: '¡Eso es! Todos los insectos tienen exactamente 6 patas, 2 antenas y el cuerpo dividido en 3 partes.',
     icon: '🐜'
@@ -117,7 +117,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 15,
     question: '¿Qué hacen muchos osos y lirones en invierno cuando hace mucho frío y no hay comida?',
-    options: ['Hibernan (duermen profundamente)', 'Vuelan a la playa', 'Cambian de color a azul'],
+    options: ['Hibernan', 'Cazan sin parar', 'Cambian de color'],
     correct: 0,
     fact: '¡Exacto! La hibernación es un estado de sueño profundo donde su corazón late muy despacio para ahorrar energía.',
     icon: '💤'
@@ -125,7 +125,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 16,
     question: 'Cuando llega el otoño y empieza el frío, muchas aves como las cigüeñas viajan a lugares más cálidos. Esto es...',
-    options: ['La migración de las aves', 'La hibernación', 'La metamorfosis'],
+    options: ['La migración', 'La hibernación', 'La metamorfosis'],
     correct: 0,
     fact: '¡Muy bien! Las aves migratorias viajan miles de kilómetros cada año buscando alimento y buen clima.',
     icon: '🦢'
@@ -141,7 +141,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 18,
     question: 'El murciélago vuela de noche y caza a oscuras emitiendo sonidos que rebotan en los objetos. Este superpoder es...',
-    options: ['La ecolocalización', 'La visión nocturna con prismáticos', 'El olfato magnético'],
+    options: ['La ecolocalización', 'La visión nocturna', 'El olfato'],
     correct: 0,
     fact: '¡Fascinante! Los murciélagos "ven con los oídos" escuchando el eco de los ultrasonidos que emiten.',
     icon: '🦇'
@@ -149,7 +149,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 19,
     question: 'El koala Kiko vive en los bosques de Australia y es un marsupial porque sus crías crecen en...',
-    options: ['Una bolsita de piel en la tripita de mamá (marsupio)', 'Un nido de barro', 'Un cascarón de madera'],
+    options: ['Una bolsa de piel llamada marsupio', 'Un nido de ramas altas', 'Un cascarón duro'],
     correct: 0,
     fact: '¡Los koalas y canguros son marsupiales! Sus bebés nacen minúsculos y terminan de crecer dentro de la bolsa materna.',
     icon: '🐨'
@@ -157,7 +157,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 20,
     question: 'La capibara Capi es muy tranquila, adora nadar en los ríos de Sudamérica y es el roedor más...',
-    options: ['Grande del mundo entero', 'Rápido del desierto', 'Pequeño del planeta'],
+    options: ['Grande del mundo', 'Rápido de la tierra', 'Pequeño del bosque'],
     correct: 0,
     fact: '¡Dato estrella! La capibara es el roedor más grande y amistoso del mundo, ¡puede pesar más de 50 kilos!',
     icon: '🍊'
@@ -165,7 +165,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 21,
     question: 'Los pingüinos y las avestruces tienen plumas y pico, pero no pueden volar. Sin embargo son...',
-    options: ['Aves (expertas nadadoras y corredoras)', 'Mamíferos marinos', 'Reptiles gigantes'],
+    options: ['Aves', 'Mamíferos marinos', 'Reptiles'],
     correct: 0,
     fact: '¡Eso es! Aunque no vuelan por el aire, son 100% aves: los pingüinos "vuelan" bajo el agua y las avestruces corren a 70 km/h.',
     icon: '🐧'
@@ -181,7 +181,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 23,
     question: 'Las abejas van de flor en flor bebiendo néctar y transportando polen pegado a sus patitas. Este trabajo vital es...',
-    options: ['La polinización (ayuda a nacer nuevos frutos)', 'La hibernación', 'La respiración'],
+    options: ['La polinización', 'La hibernación', 'La fotosíntesis'],
     correct: 0,
     fact: '¡Las abejas salvan el planeta! Gracias a la polinización, las flores se convierten en manzanas, fresas y tomates.',
     icon: '🐝'
@@ -189,7 +189,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 24,
     question: '¿Por qué la jirafa Lola tiene un cuello tan extraordinariamente largo?',
-    options: ['Para alcanzar las hojas más altas y tiernas de las acacias', 'Para cantar canciones muy agudas', 'Para bucear en ríos profundos'],
+    options: ['Para alcanzar las hojas más altas', 'Para cantar canciones agudas', 'Para bucear en ríos'],
     correct: 0,
     fact: '¡Exacto! Su largo cuello le permite alimentarse donde ningún otro animal de la sabana puede llegar.',
     icon: '🦒'
@@ -197,7 +197,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 25,
     question: 'El elefante Nico usa su trompa para respirar, oler, saludarse, ducharse y beber agua. Su trompa es en realidad...',
-    options: ['La nariz y el labio superior alargados', 'Un brazo extra con dedos', 'Un hueso largo y rígido'],
+    options: ['La nariz y el labio superior', 'Un brazo extra', 'Un hueso largo'],
     correct: 0,
     fact: '¡Increíble! La trompa no tiene huesos, está formada por más de 40.000 músculos muy fuertes y sensibles.',
     icon: '🐘'
@@ -205,7 +205,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 26,
     question: 'Los animales que nacen de huevos pero la madre los guarda dentro de su cuerpo hasta que eclosionan son...',
-    options: ['Ovovivíparos (como algunas serpientes y tiburones)', 'Herbívoros', 'Invertebrados'],
+    options: ['Ovovivíparos', 'Herbívoros', 'Invertebrados'],
     correct: 0,
     fact: '¡Dato de experta! En los ovovivíparos los huevos maduran dentro del cuerpo y las crías salen vivas.',
     icon: '🦈'
@@ -213,7 +213,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 27,
     question: '¿Cuál de estos sentidos tiene el perro Toby mucho más desarrollado que los seres humanos?',
-    options: ['El sentido del olfato (huele millones de veces mejor)', 'La vista de los colores', 'El sentido del gusto picante'],
+    options: ['El olfato', 'La vista de colores', 'El gusto'],
     correct: 0,
     fact: '¡Los perros tienen un superolfato! Pueden oler cosas que ocurrieron hace horas y rastrear pistas invisibles.',
     icon: '🐕'
@@ -221,7 +221,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 28,
     question: 'Las tortugas marinas Tula salen del agua del océano a la playa de arena exclusivamente para...',
-    options: ['Poner sus huevos en un hoyo en la arena', 'Tomar el sol con gafas', 'Aprender a caminar'],
+    options: ['Poner sus huevos en la arena', 'Tomar el sol', 'Aprender a caminar'],
     correct: 0,
     fact: '¡Correcto! Aunque viven en el mar, viajan miles de kilómetros para desovar en la playa donde ellas mismas nacieron.',
     icon: '🐢'
@@ -229,7 +229,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 29,
     question: 'El búho sabio Oli tiene los ojos fijos en la cara, pero para mirar a su alrededor puede...',
-    options: ['Girar el cuello casi por completo (270 grados)', 'Sacar los ojos de su cabeza', 'Usar un espejo con sus alas'],
+    options: ['Girar el cuello casi por completo', 'Cerrar solo un ojo', 'Mover las plumas de la cara'],
     correct: 0,
     fact: '¡Es casi un giro completo! Tienen 14 vértebras en el cuello (el doble que nosotros) y pueden mirar hacia atrás.',
     icon: '🦉'
@@ -237,7 +237,7 @@ export const CIENCIAS_QUESTIONS = [
   {
     id: 30,
     question: '¿Cuál de estos animales es un mamífero volador (el único que puede volar de verdad)?',
-    options: ['El murciélago', 'La ardilla voladora (planea, no vuela)', 'El colibrí (es un ave)'],
+    options: ['El murciélago', 'La ardilla voladora', 'El colibrí'],
     correct: 0,
     fact: '¡El murciélago es el único mamífero capaz de volar activamente con alas membranosas!',
     icon: '🦇'

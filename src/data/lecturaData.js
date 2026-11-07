@@ -24,9 +24,9 @@ export const LECTURA_MISSIONS = [
       {
         question: '¿Qué estación del año era según las hojas que tapaban el suelo?',
         options: [
-          'Otoño (hojas amarillas caídas)',
-          'Verano (hace mucho calor)',
-          'Invierno (con nieve blanca)'
+          'Otoño',
+          'Verano',
+          'Invierno'
         ],
         correct: 0,
         explanation: '¡Exacto! Las hojas amarillas que caen de los árboles indican que es la estación de otoño.'

@@ -38,11 +38,12 @@ export default function HubMenu({ currentModule, onSelectModule, onBack }) {
           tag: 'Disponible'
         },
         {
-          id: 'abn_grid',
-          title: 'La Rejilla ABN (Sumas y Restas)',
-          desc: 'Aprender a operar por columnas descomponiendo a su ritmo',
-          level: 'Próximamente',
-          status: 'locked'
+          id: 'abn_rejilla',
+          title: 'La Rejilla ABN (Sumas)',
+          desc: 'Pasa cantidades descomponiendo a tu propio ritmo en la tabla de 3 columnas',
+          level: '2º Primaria',
+          status: 'active',
+          tag: '¡Nuevo!'
         },
         {
           id: 'abn_mult',
@@ -61,10 +62,11 @@ export default function HubMenu({ currentModule, onSelectModule, onBack }) {
       modules: [
         {
           id: 'spelling',
-          title: 'Mascotas Ortográficas (B/V, C/Z, G/J)',
-          desc: 'Completa las palabras para alimentar a los cachorros',
-          level: 'Próximamente',
-          status: 'locked'
+          title: 'Mascotas Ortográficas (B/V, C/Z, G/J, R/RR)',
+          desc: 'Completa las frases con la letra correcta para ganar estrellas',
+          level: '2º Primaria',
+          status: 'active',
+          tag: '¡Nuevo!'
         },
         {
           id: 'reading',
@@ -83,10 +85,11 @@ export default function HubMenu({ currentModule, onSelectModule, onBack }) {
       modules: [
         {
           id: 'animals_world',
-          title: 'Animales del Mundo',
-          desc: 'Vertebrados, invertebrados y hábitats del planeta',
-          level: 'Próximamente',
-          status: 'locked'
+          title: 'El Reino Animal (Ciencias Naturales)',
+          desc: 'Vertebrados, ovíparos, vivíparos y alimentación',
+          level: '2º Primaria',
+          status: 'active',
+          tag: '¡Nuevo!'
         }
       ]
     }

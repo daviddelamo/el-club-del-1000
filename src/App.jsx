@@ -5,15 +5,8 @@ import {
   Sparkles,
   Volume2,
   VolumeX,
-  RotateCcw,
   BookOpen,
-  Home,
-  CheckCircle,
-  HelpCircle,
-  Trophy,
-  Award,
-  Zap,
-  SlidersHorizontal
+  Zap
 } from 'lucide-react';
 
 import { PETS, ACCESSORIES } from './data/pets';
@@ -21,10 +14,12 @@ import { generateExercise } from './data/abnEngine';
 import { sound } from './sounds';
 import PetAvatar from './components/PetAvatar';
 import AbnVisualizer from './components/AbnVisualizer';
-import MultipleChoice from './components/MultipleChoice';
 import Keypad from './components/Keypad';
 import SanctuaryView from './components/SanctuaryView';
 import HubMenu from './components/HubMenu';
+import AbnRejilla from './components/AbnRejilla';
+import LenguaGame from './components/LenguaGame';
+import CienciasGame from './components/CienciasGame';
 
 export default function App() {
   // Persistent state in localStorage
@@ -48,16 +43,15 @@ export default function App() {
   const [target, setTarget] = useState(1000); // 1000, 100, 10
   const [currentModuleId, setCurrentModuleId] = useState('abn_1000');
   const [level, setLevel] = useState(1); // 1: Centenas, 2: Decenas, 3: Números completos
-  const [inputMode, setInputMode] = useState('choice'); // 'choice' | 'keypad'
   const [muted, setMuted] = useState(false);
 
-  // Active exercise & round state
+  // Active exercise & round state for Amigos
   const [exercise, setExercise] = useState(null);
   const [keypadValue, setKeypadValue] = useState('');
   const [showHint, setShowHint] = useState(false);
   const [isHappy, setIsHappy] = useState(false);
   const [streak, setStreak] = useState(0);
-  const [feedback, setFeedback] = useState(null); // { type: 'success' | 'retry', text: string }
+  const [feedback, setFeedback] = useState(null);
 
   // Save changes to localStorage
   useEffect(() => {
@@ -78,8 +72,10 @@ export default function App() {
 
   // Load new exercise on start or change of level/target
   useEffect(() => {
-    nextExercise();
-  }, [target, level]);
+    if (['abn_1000', 'abn_100', 'abn_10'].includes(currentModuleId)) {
+      nextExercise();
+    }
+  }, [target, level, currentModuleId]);
 
   const nextExercise = () => {
     const ex = generateExercise(target, level);
@@ -102,13 +98,12 @@ export default function App() {
     });
   };
 
-  // Handle player answer submission
+  // Handle player answer submission via keypad
   const checkAnswer = (userValue) => {
     const numericAnswer = parseInt(userValue, 10);
     if (isNaN(numericAnswer)) return;
 
     if (numericAnswer === exercise.answer) {
-      // Correct!
       sound.success();
       triggerConfetti();
       setIsHappy(true);
@@ -116,7 +111,6 @@ export default function App() {
       setStreak(newStreak);
       setStars((prev) => prev + 1);
 
-      // Check if pet unlocked or special streak
       if (newStreak % 5 === 0) {
         sound.cheer();
         setFeedback({
@@ -134,7 +128,6 @@ export default function App() {
         nextExercise();
       }, 1600);
     } else {
-      // Gentle retry, encourage with ABN hint
       sound.retry();
       setStreak(0);
       setFeedback({
@@ -147,6 +140,19 @@ export default function App() {
   const handleToggleMute = () => {
     const isMuted = sound.toggleMute();
     setMuted(isMuted);
+  };
+
+  const getModuleTitle = () => {
+    switch (currentModuleId) {
+      case 'abn_rejilla':
+        return 'Rejilla ABN';
+      case 'spelling':
+        return 'Lengua y Ortografía';
+      case 'animals_world':
+        return 'Ciencias Naturales';
+      default:
+        return `Amigos del ${target}`;
+    }
   };
 
   return (
@@ -165,7 +171,7 @@ export default function App() {
               title="Ver materias y temas"
             >
               <BookOpen className="w-4 h-4 text-amber-700" />
-              <span>Temas ABN</span>
+              <span>Temas</span>
             </button>
 
             <button
@@ -180,11 +186,11 @@ export default function App() {
             </button>
           </div>
 
-          {/* Title or active target pill */}
+          {/* Active module pill */}
           <div className="hidden sm:flex items-center gap-1.5 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
-            <span className="text-xs font-bold text-slate-500">Objetivo:</span>
+            <span className="text-xs font-bold text-slate-500">Materia:</span>
             <span className="text-xs font-black text-amber-800 uppercase tracking-wide">
-              Amigos del {target}
+              {getModuleTitle()}
             </span>
           </div>
 
@@ -219,7 +225,7 @@ export default function App() {
             currentModule={currentModuleId}
             onSelectModule={(modId, newTarget) => {
               setCurrentModuleId(modId);
-              setTarget(newTarget);
+              if (newTarget) setTarget(newTarget);
               setCurrentView('game');
             }}
             onBack={() => setCurrentView('game')}
@@ -237,196 +243,183 @@ export default function App() {
           />
         )}
 
-        {currentView === 'game' && exercise && (
-          <div className="max-w-2xl mx-auto w-full flex flex-col items-center">
-            {/* Level selector tabs (specifically for 1000) */}
-            {target === 1000 && (
-              <div className="flex items-center justify-center gap-1.5 p-1 bg-white/80 backdrop-blur-md rounded-2xl border-2 border-amber-200 mb-4 shadow-sm w-full max-w-md">
-                <button
-                  onClick={() => {
-                    sound.pop();
-                    setLevel(1);
-                  }}
-                  className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all ${
-                    level === 1
-                      ? 'bg-amber-400 text-amber-950 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  🟢 Centenas
-                </button>
-                <button
-                  onClick={() => {
-                    sound.pop();
-                    setLevel(2);
-                  }}
-                  className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all ${
-                    level === 2
-                      ? 'bg-amber-400 text-amber-950 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  🟡 Decenas
-                </button>
-                <button
-                  onClick={() => {
-                    sound.pop();
-                    setLevel(3);
-                  }}
-                  className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all ${
-                    level === 3
-                      ? 'bg-amber-400 text-amber-950 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  🔴 Todo el 1000
-                </button>
-              </div>
-            )}
+        {currentView === 'game' && currentModuleId === 'abn_rejilla' && (
+          <AbnRejilla
+            onBack={() => setCurrentView('hub')}
+            onAddStar={() => setStars((s) => s + 1)}
+            pet={currentPet}
+          />
+        )}
 
-            {/* Pet and speech bubble */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4 w-full px-2">
-              <div
-                onClick={() => {
-                  sound.pop();
-                  setCurrentView('sanctuary');
-                }}
-                className="cursor-pointer group flex flex-col items-center"
-                title="Toca para cambiar de mascota"
-              >
-                <PetAvatar
-                  petId={currentPet.id}
-                  size="normal"
-                  isHappy={isHappy}
-                  accessory={activeAccessory}
-                />
-                <span className="text-[11px] font-black text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full mt-1 border border-amber-200 group-hover:scale-105 transition-transform">
-                  🐾 {currentPet.name}
+        {currentView === 'game' && currentModuleId === 'spelling' && (
+          <LenguaGame
+            onBack={() => setCurrentView('hub')}
+            onAddStar={() => setStars((s) => s + 1)}
+            pet={currentPet}
+          />
+        )}
+
+        {currentView === 'game' && currentModuleId === 'animals_world' && (
+          <CienciasGame
+            onBack={() => setCurrentView('hub')}
+            onAddStar={() => setStars((s) => s + 1)}
+            pet={currentPet}
+          />
+        )}
+
+        {/* Default game: Amigos del 1000 / 100 / 10 with on-screen KEYPAD */}
+        {currentView === 'game' &&
+          ['abn_1000', 'abn_100', 'abn_10'].includes(currentModuleId) &&
+          exercise && (
+            <div className="max-w-xl mx-auto w-full flex flex-col items-center">
+              {/* Level selector tabs (specifically for 1000) */}
+              {target === 1000 && (
+                <div className="flex items-center justify-center gap-1.5 p-1 bg-white/80 backdrop-blur-md rounded-2xl border-2 border-amber-200 mb-4 shadow-sm w-full max-w-md">
+                  <button
+                    onClick={() => {
+                      sound.pop();
+                      setLevel(1);
+                    }}
+                    className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all ${
+                      level === 1
+                        ? 'bg-amber-400 text-amber-950 shadow-sm'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    🟢 Centenas
+                  </button>
+                  <button
+                    onClick={() => {
+                      sound.pop();
+                      setLevel(2);
+                    }}
+                    className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all ${
+                      level === 2
+                        ? 'bg-amber-400 text-amber-950 shadow-sm'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    🟡 Decenas
+                  </button>
+                  <button
+                    onClick={() => {
+                      sound.pop();
+                      setLevel(3);
+                    }}
+                    className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-black transition-all ${
+                      level === 3
+                        ? 'bg-amber-400 text-amber-950 shadow-sm'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    🔴 Todo el 1000
+                  </button>
+                </div>
+              )}
+
+              {/* Pet and speech bubble */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4 w-full px-2">
+                <div
+                  onClick={() => {
+                    sound.pop();
+                    setCurrentView('sanctuary');
+                  }}
+                  className="cursor-pointer group flex flex-col items-center"
+                  title="Toca para cambiar de mascota"
+                >
+                  <PetAvatar
+                    petId={currentPet.id}
+                    size="normal"
+                    isHappy={isHappy}
+                    accessory={activeAccessory}
+                  />
+                  <span className="text-[11px] font-black text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full mt-1 border border-amber-200 group-hover:scale-105 transition-transform">
+                    🐾 {currentPet.name}
+                  </span>
+                </div>
+
+                {/* Friendly dialogue card */}
+                <div className="relative bg-white border-2 border-amber-300 rounded-3xl p-4 shadow-md max-w-sm flex-1 text-center sm:text-left">
+                  <div className="hidden sm:block absolute -left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-b-2 border-l-2 border-amber-300 transform rotate-45" />
+
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+                    Misión de energía:
+                  </p>
+                  <p className="text-sm md:text-base font-extrabold text-slate-800 mt-0.5">
+                    «¡Tengo <span className="text-amber-600 font-black text-lg">{exercise.num1}</span> y necesito llegar a <span className="text-indigo-600 font-black text-lg">{exercise.target}</span>!»
+                  </p>
+
+                  {streak > 1 && (
+                    <div className="mt-2 flex items-center gap-1 text-xs font-black text-orange-600">
+                      <Zap className="w-3.5 h-3.5 fill-orange-500" />
+                      <span>¡Racha de {streak} aciertos!</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* The Equation Card */}
+              <div className="bg-white/95 rounded-3xl p-5 md:p-6 shadow-xl border-4 border-amber-300 w-full mb-4 text-center relative overflow-hidden">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  Encuentra el amigo del {exercise.target}
                 </span>
-              </div>
 
-              {/* Friendly dialogue card */}
-              <div className="relative bg-white border-2 border-amber-300 rounded-3xl p-4 shadow-md max-w-sm flex-1 text-center sm:text-left">
-                {/* Speech bubble arrow */}
-                <div className="hidden sm:block absolute -left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-b-2 border-l-2 border-amber-300 transform rotate-45" />
+                {/* Equation display */}
+                <div className="flex items-center justify-center gap-2 md:gap-4 my-2 flex-wrap">
+                  <div className="bg-amber-50 border-2 border-amber-300 text-amber-900 rounded-2xl px-4 py-2 text-3xl md:text-5xl font-black shadow-inner">
+                    {exercise.num1}
+                  </div>
 
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
-                  Misión de comida:
-                </p>
-                <p className="text-sm md:text-base font-extrabold text-slate-800 mt-0.5">
-                  «¡Tengo <span className="text-amber-600 font-black text-lg">{exercise.num1}</span> {currentPet.food.toLowerCase()} y necesito llegar a <span className="text-indigo-600 font-black text-lg">{exercise.target}</span>!»
-                </p>
+                  <span className="text-2xl md:text-4xl font-black text-slate-400">+</span>
 
-                {streak > 1 && (
-                  <div className="mt-2 flex items-center gap-1 text-xs font-black text-orange-600">
-                    <Zap className="w-3.5 h-3.5 fill-orange-500" />
-                    <span>¡Racha de {streak} aciertos!</span>
+                  <div className="bg-emerald-50 border-2 border-dashed border-emerald-400 text-emerald-700 rounded-2xl px-4 py-2 text-3xl md:text-5xl font-black min-w-[90px] shadow-inner animate-pulse">
+                    {feedback?.type === 'success' ? exercise.answer : (keypadValue || '?')}
+                  </div>
+
+                  <span className="text-2xl md:text-4xl font-black text-slate-400">=</span>
+
+                  <div className="bg-indigo-50 border-2 border-indigo-300 text-indigo-900 rounded-2xl px-4 py-2 text-3xl md:text-5xl font-black shadow-inner">
+                    {exercise.target}
+                  </div>
+                </div>
+
+                {/* Feedback banner */}
+                {feedback && (
+                  <div
+                    className={`mt-3 py-2 px-4 rounded-2xl text-xs md:text-sm font-black animate-in fade-in zoom-in-95 duration-200 ${
+                      feedback.type === 'success'
+                        ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                        : 'bg-rose-100 text-rose-900 border border-rose-300'
+                    }`}
+                  >
+                    {feedback.text}
                   </div>
                 )}
               </div>
-            </div>
 
-            {/* The Equation Card */}
-            <div className="bg-white/95 rounded-3xl p-5 md:p-6 shadow-xl border-4 border-amber-300 w-full mb-4 text-center relative overflow-hidden">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                Encuentra el amigo del {exercise.target}
-              </span>
-
-              {/* Equation display */}
-              <div className="flex items-center justify-center gap-2 md:gap-4 my-2 flex-wrap">
-                <div className="bg-amber-50 border-2 border-amber-300 text-amber-900 rounded-2xl px-4 py-2 text-3xl md:text-5xl font-black shadow-inner">
-                  {exercise.num1}
-                </div>
-
-                <span className="text-2xl md:text-4xl font-black text-slate-400">+</span>
-
-                <div className="bg-emerald-50 border-2 border-dashed border-emerald-400 text-emerald-700 rounded-2xl px-4 py-2 text-3xl md:text-5xl font-black min-w-[90px] shadow-inner animate-pulse">
-                  {feedback?.type === 'success' ? exercise.answer : '?'}
-                </div>
-
-                <span className="text-2xl md:text-4xl font-black text-slate-400">=</span>
-
-                <div className="bg-indigo-50 border-2 border-indigo-300 text-indigo-900 rounded-2xl px-4 py-2 text-3xl md:text-5xl font-black shadow-inner">
-                  {exercise.target}
-                </div>
-              </div>
-
-              {/* Feedback banner */}
-              {feedback && (
-                <div
-                  className={`mt-3 py-2 px-4 rounded-2xl text-xs md:text-sm font-black animate-in fade-in zoom-in-95 duration-200 ${
-                    feedback.type === 'success'
-                      ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                      : 'bg-rose-100 text-rose-900 border border-rose-300'
-                  }`}
-                >
-                  {feedback.text}
-                </div>
-              )}
-            </div>
-
-            {/* Pista ABN Button & Mode Switcher */}
-            <div className="flex items-center justify-between w-full max-w-lg mb-3 px-1 gap-2">
-              <button
-                onClick={() => {
-                  sound.hint();
-                  setShowHint(true);
-                }}
-                className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 active:scale-95 text-amber-950 font-black rounded-2xl shadow-md border-2 border-amber-500 text-xs md:text-sm transition-all"
-              >
-                <Sparkles className="w-4 h-4 text-amber-950" />
-                <span>¡Pista ABN mágica!</span>
-              </button>
-
-              {/* Mode switch (Multiple choice vs keypad) */}
-              <div className="flex items-center bg-white border border-amber-200 rounded-2xl p-1 shadow-sm text-xs font-bold">
+              {/* Pista ABN Button */}
+              <div className="flex items-center justify-center w-full mb-3">
                 <button
                   onClick={() => {
-                    sound.pop();
-                    setInputMode('choice');
+                    sound.hint();
+                    setShowHint(true);
                   }}
-                  className={`px-3 py-1 rounded-xl transition-all ${
-                    inputMode === 'choice'
-                      ? 'bg-amber-400 text-amber-950 font-black shadow-sm'
-                      : 'text-slate-500 hover:text-slate-800'
-                  }`}
+                  className="flex items-center gap-1.5 px-5 py-2.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 active:scale-95 text-amber-950 font-black rounded-2xl shadow-md border-2 border-amber-500 text-sm transition-all"
                 >
-                  🍽️ Platos
-                </button>
-                <button
-                  onClick={() => {
-                    sound.pop();
-                    setInputMode('keypad');
-                  }}
-                  className={`px-3 py-1 rounded-xl transition-all ${
-                    inputMode === 'keypad'
-                      ? 'bg-amber-400 text-amber-950 font-black shadow-sm'
-                      : 'text-slate-500 hover:text-slate-800'
-                  }`}
-                >
-                  🔢 Teclado
+                  <Sparkles className="w-4 h-4 text-amber-950" />
+                  <span>¡Ver Pista ABN mágica!</span>
                 </button>
               </div>
-            </div>
 
-            {/* Interaction Area: Platos or Keypad */}
-            {inputMode === 'choice' ? (
-              <MultipleChoice
-                options={exercise.options}
-                foodIcon={currentPet.foodIcon}
-                onSelect={checkAnswer}
-                disabled={feedback?.type === 'success'}
-              />
-            ) : (
+              {/* Tablet On-screen Keypad */}
               <Keypad
                 value={keypadValue}
                 onChange={setKeypadValue}
                 onSubmit={() => checkAnswer(keypadValue)}
                 disabled={feedback?.type === 'success'}
               />
-            )}
-          </div>
-        )}
+            </div>
+          )}
       </main>
 
       {/* 3. ABN Visualizer Modal */}

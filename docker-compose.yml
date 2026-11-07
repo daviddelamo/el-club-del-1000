@@ -3,10 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: club-del-1000
     restart: unless-stopped
+    expose:
+      - "80"
     ports:
-      - "${PORT:-8080}:80"
+      - "${PORT:-8280}:80"
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:80/ || exit 1"]
       interval: 30s

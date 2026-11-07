@@ -19,24 +19,7 @@ export default function HubMenu({ currentModule, onSelectModule, onBack }) {
           status: 'active',
           tag: '¡En juego!'
         },
-        {
-          id: 'abn_100',
-          title: 'Amigos del 100',
-          desc: 'Decenas exactas y números hasta 100',
-          level: 'Repaso base',
-          target: 100,
-          status: 'active',
-          tag: 'Disponible'
-        },
-        {
-          id: 'abn_10',
-          title: 'Amigos del 10',
-          desc: 'La base de todo el método ABN',
-          level: 'Fundamentos',
-          target: 10,
-          status: 'active',
-          tag: 'Disponible'
-        },
+
         {
           id: 'abn_rejilla',
           title: 'La Rejilla ABN (Sumas)',

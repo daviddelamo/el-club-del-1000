@@ -2,10 +2,18 @@ import React from 'react';
 import { Delete, Check } from 'lucide-react';
 import { sound } from '../sounds';
 
-export default function Keypad({ value, onChange, onSubmit, disabled = false }) {
+export default function Keypad({
+  value,
+  onChange,
+  onSubmit,
+  disabled = false,
+  label = 'Tu respuesta:',
+  hideDisplay = false,
+  submitEnabled = true
+}) {
   const handleDigit = (digit) => {
     if (disabled) return;
-    if (value.length >= 4) return; // Numbers won't exceed 1000
+    if (value.length >= 4) return;
     sound.pop();
     onChange(value + digit);
   };
@@ -22,26 +30,30 @@ export default function Keypad({ value, onChange, onSubmit, disabled = false }) 
     onChange('');
   };
 
+  const canSubmit = submitEnabled && !disabled;
+
   return (
     <div className="w-full max-w-sm mx-auto">
-      {/* Display box */}
-      <div className="bg-white border-4 border-amber-300 rounded-3xl p-3 mb-3 shadow-inner flex items-center justify-between px-6">
-        <span className="text-sm font-bold text-slate-400">Tu respuesta:</span>
-        <span className="text-4xl font-black text-slate-800 tracking-wider">
-          {value || <span className="text-slate-300">___</span>}
-        </span>
-        {value.length > 0 && (
-          <button
-            onClick={handleClear}
-            className="text-xs font-bold text-slate-400 hover:text-slate-600 underline"
-          >
-            Borrar
-          </button>
-        )}
-      </div>
+      {/* Optional Display box */}
+      {!hideDisplay && (
+        <div className="bg-white border-4 border-amber-300 rounded-3xl p-3 mb-3 shadow-inner flex items-center justify-between px-6">
+          <span className="text-sm font-bold text-slate-400">{label}</span>
+          <span className="text-3xl md:text-4xl font-black text-slate-800 tracking-wider">
+            {value || <span className="text-slate-300">___</span>}
+          </span>
+          {value.length > 0 && (
+            <button
+              onClick={handleClear}
+              className="text-xs font-bold text-slate-400 hover:text-slate-600 underline"
+            >
+              Borrar
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Grid of keys */}
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-3 gap-2 md:gap-2.5">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
           <button
             key={num}
@@ -71,13 +83,13 @@ export default function Keypad({ value, onChange, onSubmit, disabled = false }) 
 
         {/* Submit button */}
         <button
-          disabled={!value || disabled}
+          disabled={!canSubmit}
           onClick={() => {
             sound.pop();
             onSubmit();
           }}
           className={`h-14 md:h-16 border-b-4 rounded-2xl font-black text-xl shadow-md active:scale-95 transition-all flex items-center justify-center gap-1 touch-manipulation ${
-            value && !disabled
+            canSubmit
               ? 'bg-emerald-500 hover:bg-emerald-600 border-emerald-600 text-white'
               : 'bg-slate-200 border-slate-300 text-slate-400 cursor-not-allowed'
           }`}

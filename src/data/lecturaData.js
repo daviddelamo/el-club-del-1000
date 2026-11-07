@@ -1,6 +1,6 @@
-// Bank of Short Reading Comprehension Missions for 2nd Grade Primary (Misiones de Lectura Corta)
+// Complete bank of 15 Short Reading Comprehension Missions for 2nd Grade Primary (Misiones de Lectura Corta)
 // Each mission includes 3 pertinent comprehension questions (literal, inferential, and values/emotions)
-// plus a reflection question to discuss together.
+// plus a reflection prompt to chat in family.
 
 export const LECTURA_MISSIONS = [
   {
@@ -320,6 +320,286 @@ export const LECTURA_MISSIONS = [
         ],
         correct: 0,
         explanation: '¡Exacto! Los perritos mueven la cola con energía cuando están muy felices y agradecidos.'
+      }
+    ]
+  },
+  {
+    id: 9,
+    title: 'Leo y el trueno de la tormenta',
+    petId: 'lion',
+    tag: 'Superar miedos',
+    story: 'Una noche sonó un trueno fuerte que retumbó en las ventanas: ¡BUM! Leo el leoncito se asustó y se metió debajo de su mantita dorada. Su papá se acercó, le dio un abrazo caliente y le explicó que los truenos solo eran nubes jugando a chocar entre ellas. Leo respiró hondo, perdió el miedo y soltó un pequeño rugido de valentía.',
+    reflection: '💭 Para pensar juntos: ¿A veces te dan miedo los truenos o la oscuridad? ¿Qué te ayuda a sentirte segura y tranquila?',
+    questions: [
+      {
+        question: '¿Dónde se escondió Leo el leoncito cuando sonó el trueno?',
+        options: [
+          'Debajo de su mantita dorada',
+          'Detrás de una cortina',
+          'En el jardín de noche'
+        ],
+        correct: 0,
+        explanation: '¡Muy bien! Se metió bajo su mantita dorada buscando protección.'
+      },
+      {
+        question: '¿Quién ayudó a Leo a calmarse dándole un abrazo?',
+        options: [
+          'Su papá con mucho cariño',
+          'Un vecino desconocido',
+          'Nadie, estaba solo'
+        ],
+        correct: 0,
+        explanation: '¡Eso es! Su papá le abrazó y le explicó lo que era la tormenta.'
+      },
+      {
+        question: '¿Qué hizo Leo al final tras perder el miedo?',
+        options: [
+          'Soltó un pequeño rugido de valentía',
+          'Se puso a llorar sin parar',
+          'Salió corriendo al bosque'
+        ],
+        correct: 0,
+        explanation: '¡Bravo! Se sintió valiente y seguro y rugió como un verdadero león.'
+      }
+    ]
+  },
+  {
+    id: 10,
+    title: 'El rescate marino de Doly',
+    petId: 'dolphin',
+    tag: 'Ayuda y solidaridad',
+    story: 'Doly el delfín nadaba veloz por los arrecifes de coral cuando oyó un llanto suave. Era un pececito payaso de rayas naranjas atrapado entre unas algas marinas enredadas. Doly nadó despacito con mucho cuidado y empujó suavemente las algas con su hocico hasta liberar al pececito. El pez dio piruetas en el agua agradecido.',
+    reflection: '💭 Para pensar juntos: ¿Te gusta ayudar a tus amigos en el colegio cuando se caen o están tristes?',
+    questions: [
+      {
+        question: '¿A quién encontró Doly atrapado entre las algas?',
+        options: [
+          'A un pececito payaso de rayas naranjas',
+          'A un pulpo gigante',
+          'A un barco pirata'
+        ],
+        correct: 0,
+        explanation: '¡Bien leído! Encontró al pequeño pez payaso atrapado en las algas.'
+      },
+      {
+        question: '¿Cómo ayudó Doly a liberar al pececito?',
+        options: [
+          'Empujó suavemente las algas con su hocico',
+          'Cortó las algas con tijeras',
+          'Le gritó que saliera él solo'
+        ],
+        correct: 0,
+        explanation: '¡Exacto! Con mucha delicadeza empujó las algas con su hocico.'
+      },
+      {
+        question: '¿Cómo demostró el pececito su agradecimiento?',
+        options: [
+          'Dio piruetas de felicidad en el agua',
+          'Se escondió debajo de la arena',
+          'Se puso a morder a Doly'
+        ],
+        correct: 0,
+        explanation: '¡Eso es! Hizo piruetas acuáticas saltando de alegría.'
+      }
+    ]
+  },
+  {
+    id: 11,
+    title: 'La biblioteca nocturna de Oli',
+    petId: 'owl',
+    tag: 'El placer de leer',
+    story: 'Cuando las estrellas iluminaban el cielo nocturno, Oli el búho encendía un farolillo amarillo en el hueco de su árbol. Allí guardaba decenas de libros de aventuras y astronomía. A Oli le fascinaba leer historias sobre planetas lejanos mientras el resto del bosque dormía en silencio, aprendiendo cada noche algo nuevo.',
+    reflection: '💭 Para pensar juntos: ¿Qué tipo de libros o historias te divierte más leer antes de dormir?',
+    questions: [
+      {
+        question: '¿Cuándo le gusta leer a Oli el búho sabio?',
+        options: [
+          'Por la noche, bajo las estrellas y con su farolillo',
+          'Al mediodía con mucho sol',
+          'Solo cuando llueve fuerte'
+        ],
+        correct: 0,
+        explanation: '¡Muy bien! Como es un ave nocturna, lee tranquilo bajo las estrellas.'
+      },
+      {
+        question: '¿Sobre qué temas le fascina leer a Oli en sus libros?',
+        options: [
+          'Sobre planetas lejanos y aventuras',
+          'Sobre cómo construir coches',
+          'Sobre recetas de sopa de piedras'
+        ],
+        correct: 0,
+        explanation: '¡Eso es! Adora los libros de aventuras y el espacio exterior.'
+      },
+      {
+        question: '¿Por qué dicen que Oli es un búho sabio?',
+        options: [
+          'Porque lee mucho y aprende algo nuevo cada noche',
+          'Porque lleva gafas de sol',
+          'Porque no habla nunca con nadie'
+        ],
+        correct: 0,
+        explanation: '¡Excelente! La lectura diaria es lo que llena de sabiduría a Oli.'
+      }
+    ]
+  },
+  {
+    id: 12,
+    title: 'La carrera tranquila de Tula',
+    petId: 'turtle',
+    tag: 'Paciencia y constancia',
+    story: 'Los animales del bosque organizaron una divertida carrera hasta la colina de los tréboles. La liebre salió corriendo como una flecha, pero se paró a presumir y a comer moras por el camino. Tula la tortuguita avanzaba pasito a pasito sin detenerse ni un minuto. Con calma y constancia, ¡Tula llegó la primera a la meta entre aplausos!',
+    reflection: '💭 Para pensar juntos: ¿Por qué tener paciencia y no rendirse nos ayuda a conseguir cosas difíciles?',
+    questions: [
+      {
+        question: '¿A dónde se dirigía la carrera de los animales?',
+        options: [
+          'A la colina de los tréboles',
+          'Al fondo del océano',
+          'A la luna'
+        ],
+        correct: 0,
+        explanation: '¡Muy bien leído! La meta era la colina de los tréboles.'
+      },
+      {
+        question: '¿Por qué se retrasó la liebre durante la carrera?',
+        options: [
+          'Se paró a presumir y a comer moras',
+          'Se torció una patita',
+          'Se equivocó de camino'
+        ],
+        correct: 0,
+        explanation: '¡Exacto! Se confió, se distrajo presumiendo y comiendo moras.'
+      },
+      {
+        question: '¿Cómo consiguió ganar Tula la tortuguita?',
+        options: [
+          'Con paso firme, calma y sin detenerse nunca',
+          'Pidiéndole un patinete a Toby',
+          'Haciendo trampas'
+        ],
+        correct: 0,
+        explanation: '¡La moraleja perfecta! La constancia y el esfuerzo paciente vencen a la prisa.'
+      }
+    ]
+  },
+  {
+    id: 13,
+    title: 'Pinchitos y la manzana gigante',
+    petId: 'hedgehog',
+    tag: 'Trabajo en equipo',
+    story: 'Pinchitos el erizo encontró la manzana roja más grande y jugosa que había visto jamás. Pero pesaba tanto que no podía moverla ni un centímetro. En lugar de rendirse, llamó a Pompón el conejo y a Toby el perrito. Empujando los tres juntos al compás de «¡una, dos y tres!», rodaron la manzana hasta el refugio para merendar juntos.',
+    reflection: '💭 Para pensar juntos: ¿Recuerdas alguna tarea que hicisteis en equipo en casa o en el cole que fuera más fácil entre todos?',
+    questions: [
+      {
+        question: '¿Qué fruta gigante encontró Pinchitos en el bosque?',
+        options: [
+          'Una manzana roja enorme y jugosa',
+          'Una sandía verde',
+          'Un plátano amarillo'
+        ],
+        correct: 0,
+        explanation: '¡Bien leído! Era una manzana roja gigante y deliciosa.'
+      },
+      {
+        question: '¿Qué hizo Pinchitos al ver que no podía mover la manzana él solo?',
+        options: [
+          'Llamó a sus amigos para empujar juntos en equipo',
+          'Se enfadó y la rompió',
+          'Se fue a dormir solo'
+        ],
+        correct: 0,
+        explanation: '¡Eso es! Supo pedir ayuda para trabajar en equipo.'
+      },
+      {
+        question: '¿Qué hicieron con la manzana cuando llegaron al refugio?',
+        options: [
+          'La compartieron para merendar todos juntos',
+          'La tiraron a la basura',
+          'La vendieron en el mercado'
+        ],
+        correct: 0,
+        explanation: '¡Qué gran merienda! Compartieron el premio de su esfuerzo.'
+      }
+    ]
+  },
+  {
+    id: 14,
+    title: 'El gran salto de Pipo el pingüino',
+    petId: 'penguin',
+    tag: 'Superación personal',
+    story: 'Pipo el pingüino practicaba saltos en el tobogán de hielo del parque de nieve. Las tres primeras veces resbaló de barriga y cayó al agua con un gracioso chapuzón: ¡ploff! Sus amigos le animaron diciendo: «¡Tú puedes, Pipo!». En el cuarto intento, Pipo tomó carrerilla, saltó alto y aterrizó de pie perfecto como un patinador olímpico.',
+    reflection: '💭 Para pensar juntos: Cuando algo no te sale a la primera (como montar en bici o patinar), ¿qué haces para conseguirlo?',
+    questions: [
+      {
+        question: '¿Qué practicaba Pipo en el tobogán de hielo?',
+        options: [
+          'Saltos y piruetas en el hielo',
+          'Cocinar galletas',
+          'Volar con alas de plumas'
+        ],
+        correct: 0,
+        explanation: '¡Muy bien! Practicaba saltos en el tobogán resbaladizo.'
+      },
+      {
+        question: '¿Qué le decían sus amigos cuando se cayó las primeras veces?',
+        options: [
+          'Le animaban diciendo: «¡Tú puedes, Pipo!»',
+          'Se reían de él',
+          'Le dijeron que se fuera a casa'
+        ],
+        correct: 0,
+        explanation: '¡Qué buenos amigos! Siempre debemos animar a los demás a seguir intentándolo.'
+      },
+      {
+        question: '¿Qué logró Pipo en su cuarto intento gracias a no rendirse?',
+        options: [
+          'Aterrizar de pie perfecto como un patinador',
+          'Romper el tobogán',
+          'Quedarse dormido en el agua'
+        ],
+        correct: 0,
+        explanation: '¡Bravo por Pipo! Con práctica y esfuerzo consiguió su salto perfecto.'
+      }
+    ]
+  },
+  {
+    id: 15,
+    title: 'Capi y el baño termal de las naranjas',
+    petId: 'capybara',
+    tag: 'Paz y armonía (1000 estrellas)',
+    story: 'En un manantial de agua tibia en el corazón del bosque vive Capi, la capibara más relajada y sabia del mundo. Cada tarde, Capi se baña tranquilamente flotando con una naranja dulce sobre su cabeza. A su alrededor se sientan pájaros, conejitos y gatitos a disfrutar de su serenidad. Con Capi no existen las prisas, solo la alegría y la paz.',
+    reflection: '💭 Para pensar juntos: ¿Qué cosas te hacen sentir tan tranquila y feliz como la capibara en el agua tibia?',
+    questions: [
+      {
+        question: '¿Dónde le gusta bañarse tranquilamente a Capi la capibara?',
+        options: [
+          'En un manantial de agua tibia',
+          'En una piscina con olas gigantes',
+          'En un vaso de agua'
+        ],
+        correct: 0,
+        explanation: '¡Excelente! Le encanta flotar en las aguas tibias y termales.'
+      },
+      {
+        question: '¿Qué lleva Capi sobre su cabeza mientras flota relajada?',
+        options: [
+          'Una naranja dulce y aromática',
+          'Un sombrero de copa negro',
+          'Una piedra pesada'
+        ],
+        correct: 0,
+        explanation: '¡Qué graciosa! Lleva una rica naranja dorada como la reina del 1000.'
+      },
+      {
+        question: '¿Por qué todos los animales del bosque quieren estar cerca de Capi?',
+        options: [
+          'Porque les transmite paz, cariño y alegría sin prisas',
+          'Porque les regala juguetes caros',
+          'Porque les obliga a estar quietos'
+        ],
+        correct: 0,
+        explanation: '¡La lección de la Capibara! Su tranquilidad y buen corazón hacen felices a todos.'
       }
     ]
   }

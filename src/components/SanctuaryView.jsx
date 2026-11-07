@@ -80,8 +80,19 @@ export default function SanctuaryView({
                     : 'bg-slate-200/80 border-slate-300 opacity-60 cursor-not-allowed'
                 }`}
               >
+                {/* Capibara 1000 stars ultimate prize badge */}
+                {pet.id === 'capybara' && (
+                  <span className={`absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-md whitespace-nowrap ${
+                    isUnlocked
+                      ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-amber-950 border border-amber-300 animate-bounce-gentle'
+                      : 'bg-amber-700 text-amber-100 border border-amber-500'
+                  }`}>
+                    {isUnlocked ? '✨ ¡Reina de las 1000 Estrellas!' : '👑 Gran Reto: 1000 ⭐'}
+                  </span>
+                )}
+
                 {/* Active companion badge */}
-                {isSelected && (
+                {isSelected && pet.id !== 'capybara' && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full shadow-md">
                     ¡Compañero activo!
                   </span>

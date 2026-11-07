@@ -15,6 +15,7 @@ import { generateExercise } from './data/abnEngine';
 import { sound } from './sounds';
 import PetAvatar from './components/PetAvatar';
 import Keypad from './components/Keypad';
+import GranjaView from './components/GranjaView';
 import SanctuaryView from './components/SanctuaryView';
 import HubMenu from './components/HubMenu';
 import AbnRejilla from './components/AbnRejilla';
@@ -29,6 +30,32 @@ export default function App() {
     return saved ? parseInt(saved, 10) : 0;
   });
 
+  // Food rations for the farm (start with 5 rations so she can feed right away!)
+  const [foodStock, setFoodStock] = useState(() => {
+    const saved = localStorage.getItem('abn_food_stock');
+    return saved !== null ? parseInt(saved, 10) : 5;
+  });
+
+  // Friendship levels & EXP per pet: { [petId]: { level: 1..5, exp: 0..100 } }
+  const [petFriendship, setPetFriendship] = useState(() => {
+    try {
+      const saved = localStorage.getItem('abn_pet_friendship');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  // Accessories equipped per pet: { [petId]: accessoryId }
+  const [petAccessories, setPetAccessories] = useState(() => {
+    try {
+      const saved = localStorage.getItem('abn_pet_accessories');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
   const [selectedPetId, setSelectedPetId] = useState(() => {
     return localStorage.getItem('abn_pet') || 'dog';
   });
@@ -37,7 +64,7 @@ export default function App() {
     return localStorage.getItem('abn_acc') || null;
   });
 
-  // Current navigation view: 'game' | 'sanctuary' | 'hub'
+  // Current navigation view: 'game' | 'granja' | 'hub'
   const [currentView, setCurrentView] = useState('game');
 
   // Game configuration - Amigos del 1000 exclusively
@@ -61,6 +88,18 @@ export default function App() {
   }, [stars]);
 
   useEffect(() => {
+    localStorage.setItem('abn_food_stock', foodStock.toString());
+  }, [foodStock]);
+
+  useEffect(() => {
+    localStorage.setItem('abn_pet_friendship', JSON.stringify(petFriendship));
+  }, [petFriendship]);
+
+  useEffect(() => {
+    localStorage.setItem('abn_pet_accessories', JSON.stringify(petAccessories));
+  }, [petAccessories]);
+
+  useEffect(() => {
     localStorage.setItem('abn_pet', selectedPetId);
   }, [selectedPetId]);
 
@@ -71,6 +110,51 @@ export default function App() {
       localStorage.removeItem('abn_acc');
     }
   }, [selectedAccessoryId]);
+
+  // Handler to feed pet in farm
+  const handleFeedPet = (petId) => {
+    if (foodStock <= 0) return false;
+    setFoodStock((prev) => Math.max(0, prev - 1));
+
+    let leveledUp = false;
+    setPetFriendship((prev) => {
+      const current = prev[petId] || { level: 1, exp: 0 };
+      let newLevel = current.level;
+      let newExp = current.exp + 25;
+
+      if (newExp >= 100 && newLevel < 5) {
+        newLevel += 1;
+        newExp = 0;
+        leveledUp = true;
+      } else if (newLevel >= 5) {
+        newExp = 100;
+      }
+
+      return {
+        ...prev,
+        [petId]: { level: newLevel, exp: newExp },
+      };
+    });
+
+    return leveledUp;
+  };
+
+  // Handler to equip accessory to a pet
+  const handleEquipAccessory = (petId, accessoryId) => {
+    setPetAccessories((prev) => ({
+      ...prev,
+      [petId]: accessoryId,
+    }));
+    if (petId === selectedPetId) {
+      setSelectedAccessoryId(accessoryId);
+    }
+  };
+
+  // Central reward function: grants 1 star AND 1 food ration
+  const awardStarAndFood = () => {
+    setStars((prev) => prev + 1);
+    setFoodStock((prev) => prev + 1);
+  };
 
   // Load new exercise on start or change of level
   useEffect(() => {
@@ -90,7 +174,8 @@ export default function App() {
   };
 
   const currentPet = PETS.find((p) => p.id === selectedPetId) || PETS[0];
-  const activeAccessory = ACCESSORIES.find((a) => a.id === selectedAccessoryId);
+  const currentPetAccId = petAccessories[selectedPetId] !== undefined ? petAccessories[selectedPetId] : selectedAccessoryId;
+  const activeAccessory = ACCESSORIES.find((a) => a.id === currentPetAccId);
 
   // Trigger celebration confetti
   const triggerConfetti = () => {
@@ -139,7 +224,7 @@ export default function App() {
       setIsHappy(true);
       const newStreak = streak + 1;
       setStreak(newStreak);
-      setStars((prev) => prev + 1);
+      awardStarAndFood();
 
       if (newStreak % 5 === 0) {
         sound.cheer();
@@ -222,12 +307,12 @@ export default function App() {
             <button
               onClick={() => {
                 sound.pop();
-                setCurrentView('sanctuary');
+                setCurrentView('granja');
               }}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-2xl font-black text-emerald-900 text-xs md:text-sm active:scale-95 transition-all shadow-sm"
-              title="Ver parque de mascotas"
+              title="Ir a La Granja para cuidar tus mascotas"
             >
-              <span>🐾 Refugio</span>
+              <span>🏡 La Granja</span>
             </button>
           </div>
 
@@ -239,14 +324,29 @@ export default function App() {
             </span>
           </div>
 
-          {/* Stars & Sound Toggle */}
+          {/* Resources & Sound Toggle */}
           <div className="flex items-center gap-2">
+            {/* Food basket counter in header */}
             <div
               onClick={() => {
                 sound.pop();
-                setCurrentView('sanctuary');
+                setCurrentView('granja');
+              }}
+              className="flex items-center gap-1 bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-950 px-2.5 py-1.5 rounded-2xl font-black text-xs md:text-sm shadow-sm cursor-pointer active:scale-95 transition-transform"
+              title="Raciones de comida disponibles para la granja"
+            >
+              <span className="text-base">🧺</span>
+              <span>{foodStock}</span>
+            </div>
+
+            {/* Stars counter */}
+            <div
+              onClick={() => {
+                sound.pop();
+                setCurrentView('granja');
               }}
               className="flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 px-3.5 py-1.5 rounded-2xl font-black text-sm md:text-base shadow-sm border border-amber-600/20 cursor-pointer active:scale-95 transition-transform"
+              title="Estrellas conseguidas"
             >
               <Star className="w-5 h-5 fill-amber-950 text-amber-950" />
               <span>{stars}</span>
@@ -276,13 +376,16 @@ export default function App() {
           />
         )}
 
-        {currentView === 'sanctuary' && (
-          <SanctuaryView
+        {(currentView === 'granja' || currentView === 'sanctuary') && (
+          <GranjaView
             stars={stars}
+            foodStock={foodStock}
+            onFeedPet={handleFeedPet}
+            petFriendship={petFriendship}
+            petAccessories={petAccessories}
+            onEquipAccessory={handleEquipAccessory}
             selectedPetId={selectedPetId}
             onSelectPet={setSelectedPetId}
-            selectedAccessoryId={selectedAccessoryId}
-            onSelectAccessory={setSelectedAccessoryId}
             onBack={() => setCurrentView('game')}
           />
         )}
@@ -290,7 +393,7 @@ export default function App() {
         {currentView === 'game' && currentModuleId === 'abn_rejilla' && (
           <AbnRejilla
             onBack={() => setCurrentView('hub')}
-            onAddStar={() => setStars((s) => s + 1)}
+            onAddStar={awardStarAndFood}
             pet={currentPet}
           />
         )}
@@ -298,7 +401,7 @@ export default function App() {
         {currentView === 'game' && currentModuleId === 'spelling' && (
           <LenguaGame
             onBack={() => setCurrentView('hub')}
-            onAddStar={() => setStars((s) => s + 1)}
+            onAddStar={awardStarAndFood}
             pet={currentPet}
           />
         )}
@@ -306,7 +409,7 @@ export default function App() {
         {currentView === 'game' && currentModuleId === 'animals_world' && (
           <CienciasGame
             onBack={() => setCurrentView('hub')}
-            onAddStar={() => setStars((s) => s + 1)}
+            onAddStar={awardStarAndFood}
             pet={currentPet}
           />
         )}
@@ -314,7 +417,7 @@ export default function App() {
         {currentView === 'game' && currentModuleId === 'reading' && (
           <LecturaGame
             onBack={() => setCurrentView('hub')}
-            onAddStar={() => setStars((s) => s + 1)}
+            onAddStar={awardStarAndFood}
             pet={currentPet}
           />
         )}
@@ -370,10 +473,10 @@ export default function App() {
               <div
                 onClick={() => {
                   sound.pop();
-                  setCurrentView('sanctuary');
+                  setCurrentView('granja');
                 }}
                 className="cursor-pointer group flex flex-col items-center"
-                title="Toca para cambiar de mascota"
+                title="Toca para visitar La Granja"
               >
                 <PetAvatar
                   petId={currentPet.id}
